@@ -1,0 +1,17 @@
+{
+  "name": "whatcdcli",
+  "version": "0.0.0",
+  "description": "what.cd command line tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "whatcdcli"
+  },
+  "author": "Cody Reichert",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "colors": "^1.0.3",
+    "prompt": "^0.2.14",
+    "whatcd": "^2.1.0"
+  }
+}
