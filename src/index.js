@@ -4,7 +4,11 @@
 var settings = require('./settings');
 var chalk = require('chalk');
 var WhatCD = require('whatcd');
+
+// prompt settings
 var prompt = require('prompt');
+prompt.message = '';
+prompt.delimiter = '';
 prompt.start();
 
 // globals
@@ -23,12 +27,13 @@ function login(username, password) {
     if (err) {
       return onErr(err);
     }
-    console.log(chalk.green('Welcome back, ' + username + '!'));
+    console.log(chalk.green('\n Welcome back, ' + username + '!'));
     typeOfSearch();
   });
 }
 
 function typeOfSearch() {
+  console.log(chalk.blue('_______________________________________________________________________'));
   console.log('(A)rtist Search, (B)rowse, (T)orrent Search, (Top) 10, (S)imilar Artist');
   prompt.get(['selection'], function(err, result) {
     if (err) {
@@ -42,8 +47,8 @@ function typeOfSearch() {
 function whatSearch(searchType) {
 
   if (searchType !== 'B' && searchType !== 'Top') {
-    console.log('Sorry, that search is not yet supported. Please check for an udpate');
-    return onErr('Unsupported Search');
+    console.log(chalk.yellow('Sorry, that search is not yet supported. Please check for an udpate'));
+    typeOfSearch();
   }
 
   if (searchType === 'B') {
@@ -57,10 +62,15 @@ function whatSearch(searchType) {
           console.log(err);
           return onErr(err);
         }
-        console.log(query + ' success!');
-        for (var i = 0; i < data.results.length; i++) {
-          console.log(data.results[i].artist);
+        if (data.results.length === '0') {
+          console.log('Sorry, no results found');
         }
+        for (var i = 0; i < data.results.length; i++) {
+          if (data.results[i].artist === query) {
+            console.log(data.results[i].artist + ': ' + data.results[i].groupName);
+          }
+        }
+        typeOfSearch();
       });
     });
   }
@@ -70,12 +80,15 @@ function whatSearch(searchType) {
         console.log(err);
         return onErr(err);
       }
-      console.log(data[0].caption);
+      console.log('** ' + data[0].caption + ' **');
       var result = data[0].results
+      var j = 1
       for (var i = 0; i < data[0].results.length; i ++) {
-        console.log(result[i].artist + ': ' + result[i].groupName +
-                    ' [' + result[i].format + ']');
+        console.log(chalk.yellow([j] + ') ') + result[i].artist + ': ' + result[i].groupName +
+                    chalk.yellow(' [' + result[i].format + ']'));
+        j = j + 1;
       }
+      typeOfSearch();
     });
   }
 }
