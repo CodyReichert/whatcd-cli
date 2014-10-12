@@ -15,18 +15,6 @@ var green = chalk.green();
 var red = chalk.red()
 var yellow = chalk.yellow();
 
-
-//prompt.get(['username', 'password'], function(err, result) {
-//  if (err) {
-//    return onErr(err);
-//  };
-//  client =  new WhatCD(whatUrl, result.username, result.password);
-//  console.log('Input received');
-//  console.log('Email' + result.username);
-//  console.log('Password' + result.password);
-//  login(result.username, result.password);
-//});
-
 client =  new WhatCD(whatUrl, settings.username, settings.password);
 login(settings.username, settings.password);
 
