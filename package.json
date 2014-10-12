@@ -1,7 +1,7 @@
 {
   "name": "whatcdcli",
-  "version": "0.0.0",
-  "description": "what.cd command line tool",
+  "version": "0.1.0",
+  "description": "what.cd command line interface",
   "main": "index.js",
   "scripts": {
     "test": "whatcdcli"
@@ -11,6 +11,8 @@
   "dependencies": {
     "chalk": "^0.5.1",
     "colors": "^1.0.3",
+    "fs": "0.0.2",
+    "http": "0.0.0",
     "prompt": "^0.2.14",
     "whatcd": "^2.1.0"
   }
