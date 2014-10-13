@@ -13,16 +13,12 @@ prompt.message = '';
 prompt.delimiter = '';
 prompt.start();
 
-// chalk colors for output
-var green = chalk.green();
-var red = chalk.red()
-var yellow = chalk.yellow();
-
 // what.cd client
 var whatUrl = 'https://what.cd';
 var client =  new WhatCD(whatUrl, settings.username, settings.password);
 var authkey;
 var passkey;
+
 login(settings.username, settings.password);
 
 // login
@@ -134,7 +130,6 @@ function whatSearch(searchType) {
             data += chunk;
           });
           res.on('end', function() {
-            //var fileName = torrentInfo.torrentFilePath + '.torrent';
             var fileName = settings.torrentDirectory + torrentFilepath + '.torrent';
             fs.writeFile(fileName, data, 'binary', function(err) {
               if (err) { onErr(err) }
@@ -142,6 +137,7 @@ function whatSearch(searchType) {
               typeOfSearch();
             });
           });
+          // Catch any errors during file write
           res.on('error', function(err) { console.log(err.stack) });
         });
       });
