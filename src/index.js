@@ -70,8 +70,9 @@ function whatSearch(searchType) {
         }
         for (var i = 0; i < data.results.length; i++) {
           if (data.results[i].artist === query) {
-            console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName) +
-                        ' \n Torrents:');
+            console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName + ' ' +
+                        chalk.red(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')) +
+                        ' \n ' + chalk.underline.dim('Torrents:'));
             var torrents = data.results[i].torrents;
             for (var t = 0; t < torrents.length; t++) {
               console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
