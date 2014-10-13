@@ -13,13 +13,13 @@ prompt.message = '';
 prompt.delimiter = '';
 prompt.start();
 
-// globals
-var whatUrl = 'https://what.cd';
 // chalk colors for output
 var green = chalk.green();
 var red = chalk.red()
 var yellow = chalk.yellow();
 
+// what.cd client
+var whatUrl = 'https://what.cd';
 var client =  new WhatCD(whatUrl, settings.username, settings.password);
 var authkey;
 var passkey;
@@ -54,7 +54,7 @@ function typeOfSearch() {
 function whatSearch(searchType) {
 
   // Browse Torrents
-  if (searchType === 'B') {
+  if (searchType === 'B' || searchType === 'b') {
     prompt.get(['Search'], function(err, result) {
       if (err) {
         return onErr(err);
@@ -65,19 +65,19 @@ function whatSearch(searchType) {
           console.log(err);
           return onErr(err);
         }
-        if (data.results.length === '0') {
-          console.log('Sorry, no results found');
-        }
         for (var i = 0; i < data.results.length; i++) {
-          if (data.results[i].artist === query) {
+          if (data.results[i].artist !== 'Various Artists') {
             console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName + ' ' +
-                        chalk.red(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')) +
-                        ' \n ' + chalk.underline.dim('Torrents:'));
+                        chalk.red(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
             var torrents = data.results[i].torrents;
-            for (var t = 0; t < torrents.length; t++) {
-              console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
-                          ' (' + chalk.green(torrents[t].seeders) + '/' + chalk.red(torrents[t].leechers) + ')' +
-                          ' Torrent Id: ' + torrents[t].torrentId);
+            if (torrents == undefined) {
+              console.log('');
+            } else {
+              for (var t = 0; t < torrents.length; t++) {
+                console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
+                            ' (' + chalk.green(torrents[t].seeders) + '/' + chalk.red(torrents[t].leechers) + ')' +
+                            ' Torrent Id: ' + torrents[t].torrentId);
+              }
             }
           }
         }
@@ -106,7 +106,7 @@ function whatSearch(searchType) {
   }
 
   // Download torrent file
-  else if (searchType === 'Download' || searchType ===  'D') {
+  else if (searchType === 'Download' || searchType ===  'D' || searchType ===  'd') {
 
     prompt.get(['Id'], function(err, result) {
       if (err) {
