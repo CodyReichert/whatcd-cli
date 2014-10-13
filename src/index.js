@@ -2,10 +2,10 @@
 
 // imports
 var settings = require('./settings');
-var https = require('https');
-var fs = require('fs');
-var chalk = require('chalk');
-var WhatCD = require('whatcd');
+var https    = require('https');
+var fs       = require('fs');
+var chalk    = require('chalk');
+var WhatCD   = require('whatcd');
 
 // prompt settings
 var prompt = require('prompt');
@@ -25,6 +25,7 @@ var authkey;
 var passkey;
 login(settings.username, settings.password);
 
+// login
 function login(username, password) {
   client.index(function(err, data) {
     if (err) {
@@ -32,14 +33,14 @@ function login(username, password) {
     }
     authkey = data.authkey;
     passkey = data.passkey;
-    console.log(data.authkey);
     console.log(chalk.green('\n Welcome back, ' + username + '!'));
     typeOfSearch();
   });
 }
 
+// Main menu
 function typeOfSearch() {
-  console.log(chalk.blue('_________________________________________________________________________________'));
+  console.log(chalk.blue('___________________________________________________________________________________'));
   console.log('(A)rtist Search, (B)rowse, (T)orrent Search, (Top) 10, (S)imilar Artist, (D)ownload');
   prompt.get(['selection'], function(err, result) {
     if (err) {
@@ -52,6 +53,7 @@ function typeOfSearch() {
 
 function whatSearch(searchType) {
 
+  // Browse Torrents
   if (searchType === 'B') {
     prompt.get(['Search'], function(err, result) {
       if (err) {
@@ -68,8 +70,8 @@ function whatSearch(searchType) {
         }
         for (var i = 0; i < data.results.length; i++) {
           if (data.results[i].artist === query) {
-            console.log(data.results[i].artist + ': ' + data.results[i].groupName +
-                        ' (Id: ' + chalk.cyan(data.results[i].groupId) + ') \n Torrents:');
+            console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName) +
+                        ' \n Torrents:');
             var torrents = data.results[i].torrents;
             for (var t = 0; t < torrents.length; t++) {
               console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
@@ -82,6 +84,8 @@ function whatSearch(searchType) {
       });
     });
   }
+
+  // View top 10 torrents of the day
   else if (searchType === 'Top') {
     client.api_request({ action: "top10" }, function(err, data) {
       if (err) {
@@ -99,60 +103,55 @@ function whatSearch(searchType) {
       typeOfSearch();
     });
   }
-  else if (searchType === 'Download') {
 
-    var url = 'https://ssl.what.cd/torrents.php?action=download&id=30742004&authkey=f6e480cfed7b10c1cc28db018fd52650&torrent_pass=ks0yxzotdlxpmkx2e7yx877q6xzwa1uh'
-    var request = https.get(url, function(res) {
-      var data = '';
-      res.setEncoding('binary');
-      res.on('data', function(chunk) {
-        data += chunk;
-      });
-      res.on('end', function() {
-        console.log(data);
-        fs.writeFile('torrent.torrent', data, 'binary', function(err) {
-          if (err) { onErr(err) }
-          console.log('File saved!');
-          typeOfSearch();
-        });
-      });
-      res.on('error', function(err) { console.log(err.stack) });
-    })
+  // Download torrent file
+  else if (searchType === 'Download' || searchType ===  'D') {
 
-
-    //client.api_request({ action: "download", id: 29549210 }, function(err, data) {
-    //  if (err) {
-    //    console.log(err);
-    //    return onErr(err);
-    //  }
-    //  typeOfSearch();
-    //});
-  }
-  else if (searchType === 'D') {
     prompt.get(['Id'], function(err, result) {
       if (err) {
         return onErr(err);
       }
-      var torrentId = result.Id;
-      client.api_request({ action: "torrent", id: torrentId }, function(err, data) {
+      var torrentId;
+      var torrentSize;
+      var torrentFormat;
+      var torrentFilepath;
+      // get album info
+      client.api_request({ action: 'torrent', id: result.Id}, function(err, data) {
         if (err) {
-          console.log(err);
           return onErr(err);
         }
-        console.log(data);
-        //for (var i = 0; i < data.results.length; i++) {
-        //  console.log(data.results[i].artist + ': ' + data.results[i].groupName +
-        //              ' (Id: ' + chalk.cyan(data.results[i].groupId) + ')');
-        //}
-        typeOfSearch();
+        torrentId = data.torrent.id;
+        torrentSize = data.torrent.size;
+        torrentFilepath = data.torrent.filePath;
+        torrentFormat = data.torrent.format;
+        var url = 'https://ssl.what.cd/torrents.php?action=download&id=' + result.Id + '&authkey=' + authkey + '&torrent_pass=' + passkey
+        var request = https.get(url, function(res) {
+          console.log(torrentFilepath);
+          var data = '';
+          res.setEncoding('binary');
+          res.on('data', function(chunk) {
+            data += chunk;
+          });
+          res.on('end', function() {
+            //var fileName = torrentInfo.torrentFilePath + '.torrent';
+            var fileName = settings.torrentDirectory + torrentFilepath + '.torrent';
+            fs.writeFile(fileName, data, 'binary', function(err) {
+              if (err) { onErr(err) }
+              console.log('File saved!');
+              typeOfSearch();
+            });
+          });
+          res.on('error', function(err) { console.log(err.stack) });
+        });
       });
     });
   }
+
+  // Throw errors for unsupported features
   else {
-    var error = chalk.yellow('Sorry, that search is not yet supported. Please check for an udpate');
+    var error = chalk.yellow('Sorry, that search is not yet supported. Please back check for an udpate');
     return onErr(error);
   }
-
 }
 
 function onErr(err) {
