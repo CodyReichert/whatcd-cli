@@ -82,8 +82,26 @@ function whatSearch(searchType) {
     });
   }
 
+  // Similar Artists
+  else if (searchType === 's' || searchType === 'S') {
+    prompt.get(['Artist'], function(err, result) {
+      client.api_request({ action: "similar_artists", id: result.Artist, limit: "5" }, function(err, data) {
+        if (err) {
+          console.log(err);
+          return onErr(err);
+        }
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i].name + ' - ' + chalk.magenta(chalk.bold(data[i].score) + 
+                      ' point match!' + ' [id:  ' + chalk.yellow(data[i].id) + ']' ));
+        }
+        typeOfSearch();
+      });
+    });
+  }
+
   // View top 10 torrents of the day
-  else if (searchType === 'Top') {
+  else if (searchType === 'Top' || searchType === 'top') {
     client.api_request({ action: "top10" }, function(err, data) {
       if (err) {
         console.log(err);
