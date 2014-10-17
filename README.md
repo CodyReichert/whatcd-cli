@@ -48,7 +48,10 @@ Note, most of the searches are case and space sensitive.
 Browse and Top10 are the only function searches currently. All others will return an error. Check back soon for more updates.
 
 
-### License - Apache GPL v3.0
+### Licensing and Disclaimer
+#### GNU General Public License v3.0
+
+**This software is licensed under the GNU General Publice License Version 3.0**
 
 WhatCD-cli is a command-line interface for browsing and downloading what.cd torrents.
 
