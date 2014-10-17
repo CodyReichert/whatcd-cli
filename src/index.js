@@ -21,7 +21,10 @@ var passkey;
 
 login(settings.username, settings.password);
 
-// login
+//-----------------------------------//
+// Authentication. Get sent to the main
+// menu upon successful authentication
+//-----------------------------------//
 function login(username, password) {
   client.index(function(err, data) {
     if (err) {
@@ -29,13 +32,13 @@ function login(username, password) {
     }
     authkey = data.authkey;
     passkey = data.passkey;
-    console.log(chalk.green('\n Welcome back, ' + username + '!'));
-    typeOfSearch();
+    console.log(chalk.green.bold('\n Welcome back, ' + username + '!'));
+    mainMenu();
   });
 }
 
 // Main menu
-function typeOfSearch() {
+function mainMenu() {
   console.log(chalk.blue('_________________________________________________________________________________________\n') +
                           chalk.magenta('Search for any artist, album or torrent, or use one of the advanced search' +
                           ' commands below'));
@@ -53,6 +56,10 @@ function typeOfSearch() {
   });
 }
 
+//------------------------------------------------------------------//
+// The input from the main menu comes here, and if no advanced
+// search option was chosen the default search browses all torrents
+//------------------------------------------------------------------//
 function whatSearch(searchType) {
 
   // Similar Artists
@@ -64,16 +71,16 @@ function whatSearch(searchType) {
           return onErr(err);
         }
         for (var i = 0; i < 10; i++) {
-          if (data.similarArtists[i] == undefined) { return typeOfSearch(); }
-          console.log(data.similarArtists[i].name + ' - ' + chalk.magenta(chalk.bold(data.similarArtists[i].score) + 
-                      ' point match!' + chalk.yellow(' [id: ' + chalk.bold(data.similarArtists[i].artistId) + ']' )));
+          if (data.similarArtists[i] == undefined) { return mainMenu(); }
+          console.log(chalk.bold(data.similarArtists[i].name) + ' - ' +
+                      chalk.yellow(chalk.bold(data.similarArtists[i].score) + ' point match!'));
         }
-        typeOfSearch();
+        mainMenu();
       });
     });
   }
 
-  // View top 10 torrents of the day
+  // Top 10 torrents of the day
   else if (searchType === 'Top' || searchType === 'top') {
     client.api_request({ action: "top10" }, function(err, data) {
       if (err) {
@@ -88,11 +95,11 @@ function whatSearch(searchType) {
                     chalk.yellow(' [' + result[i].format + ']'));
         j = j + 1;
       }
-      typeOfSearch();
+      mainMenu();
     });
   }
 
-  // Download torrent file
+  // Download torrent file by id
   else if (searchType === 'Download' || searchType ===  'D' || searchType ===  'd') {
 
     console.log(chalk.cyan('Enter the id of the torrent file'));
@@ -113,7 +120,12 @@ function whatSearch(searchType) {
         torrentSize = data.torrent.size;
         torrentFilepath = data.torrent.filePath;
         torrentFormat = data.torrent.format;
-        var url = 'https://ssl.what.cd/torrents.php?action=download&id=' + result.Id + '&authkey=' + authkey + '&torrent_pass=' + passkey
+        var url = 'https://ssl.what.cd/torrents.php?action=download&id=' +
+                  result.Id +
+                  '&authkey=' +
+                  authkey +
+                  '&torrent_pass=' +
+                  passkey
         var request = https.get(url, function(res) {
           console.log(torrentFilepath);
           var data = '';
@@ -126,7 +138,7 @@ function whatSearch(searchType) {
             fs.writeFile(fileName, data, 'binary', function(err) {
               if (err) { onErr(err) }
               console.log('File saved!');
-              typeOfSearch();
+              mainMenu();
             });
           });
           // Catch any errors during file write
@@ -152,8 +164,8 @@ function whatSearch(searchType) {
       }
       for (var i = 0; i < data.results.length; i++) {
         if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
-          console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName + ' ' +
-                      chalk.red(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
+          console.log(chalk.bold(data.results[i].artist + ': ' + chalk.blue(data.results[i].groupName) + ' ' +
+                      chalk.yellow(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
           var torrents = data.results[i].torrents;
           if (torrents == undefined) {
             console.log('');
@@ -166,7 +178,7 @@ function whatSearch(searchType) {
           }
         }
       }
-      typeOfSearch();
+      mainMenu();
     });
   } // default search
 
@@ -174,5 +186,5 @@ function whatSearch(searchType) {
 
 function onErr(err) {
   console.log(err);
-  typeOfSearch();
+  mainMenu();
 }
