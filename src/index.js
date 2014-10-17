@@ -36,8 +36,15 @@ function login(username, password) {
 
 // Main menu
 function typeOfSearch() {
-  console.log(chalk.blue('___________________________________________________________________________________'));
-  console.log('(A)rtist Search, (B)rowse, (T)orrent Search, (Top) 10, (S)imilar Artist, (D)ownload');
+  console.log(chalk.blue('___________________________________________________________________________________\n') +
+                          chalk.magenta('Search for any artist, album or torrent, or use one of the advanced search' +
+                          ' commands below'));
+  console.log(chalk.bold('(A)') + 'rtist Search,' +
+              chalk.bold('(B)') + 'rowse,' +
+              chalk.bold('(T)') + 'orrent Search,' +
+              chalk.bold('(Top)') + ' 10,' +
+              chalk.bold('(S)') + 'imilar Artist,' +
+              chalk.bold('(D)') + 'ownload');
   prompt.get(['selection'], function(err, result) {
     if (err) {
       return onErr(err);
@@ -62,7 +69,7 @@ function whatSearch(searchType) {
           return onErr(err);
         }
         for (var i = 0; i < data.results.length; i++) {
-          if (data.results[i].artist !== 'Various Artists') {
+          if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
             console.log(chalk.bold(data.results[i].artist + ': ' + data.results[i].groupName + ' ' +
                         chalk.red(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
             var torrents = data.results[i].torrents;
@@ -85,15 +92,15 @@ function whatSearch(searchType) {
   // Similar Artists
   else if (searchType === 's' || searchType === 'S') {
     prompt.get(['Artist'], function(err, result) {
-      client.api_request({ action: "similar_artists", id: result.Artist, limit: "5" }, function(err, data) {
+      client.api_request({ action: "artist", artistname: result.Artist }, function(err, data) {
         if (err) {
           console.log(err);
           return onErr(err);
         }
-        console.log(data);
-        for (var i = 0; i < data.length; i++) {
-          console.log(data[i].name + ' - ' + chalk.magenta(chalk.bold(data[i].score) + 
-                      ' point match!' + ' [id:  ' + chalk.yellow(data[i].id) + ']' ));
+        for (var i = 0; i < 10; i++) {
+          if (data.similarArtists[i] == undefined) { return typeOfSearch(); }
+          console.log(data.similarArtists[i].name + ' - ' + chalk.magenta(chalk.bold(data.similarArtists[i].score) + 
+                      ' point match!' + chalk.yellow(' [id: ' + chalk.bold(data.similarArtists[i].artistId) + ']' )));
         }
         typeOfSearch();
       });
