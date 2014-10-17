@@ -46,3 +46,28 @@ Note, most of the searches are case and space sensitive.
 #### Options
 
 Browse and Top10 are the only function searches currently. All others will return an error. Check back soon for more updates.
+
+
+### License - Apache GPL v3.0
+
+WhatCD-cli is a command-line interface for browsing and downloading what.cd torrents.
+
+
+Copyright (C) 2014 Cody Reichert
+
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/).
+
+For any additional information or questions, you can contact me
+at: [codyreichert@gmail.com](mailto:codyreichert@gmail.com)
