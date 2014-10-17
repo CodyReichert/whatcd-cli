@@ -32,6 +32,9 @@ function login(username, password) {
     }
     authkey = data.authkey;
     passkey = data.passkey;
+    console.log(chalk.blue('_________________________________________________________________________________________'));
+    console.log(chalk.blue.bold('\n WhatCD-cli - Copyright 2014 - GNU GPL v3.0\n') +
+                                ' For issues, visit http://github.com/CodyReichert/whatcd-cli');
     console.log(chalk.green.bold('\n Welcome back, ' + username + '!'));
     mainMenu();
   });
@@ -46,12 +49,13 @@ function mainMenu() {
               chalk.bold('(T)') + 'orrent Search,' +
               chalk.bold('(Top)') + ' 10,' +
               chalk.bold('(S)') + 'imilar Artist,' +
-              chalk.bold('(D)') + 'ownload');
-  prompt.get(['selection'], function(err, result) {
+              chalk.bold('(D)') + 'ownload, ' +
+              chalk.bold('(H)') + 'elp');
+  prompt.get(['search'], function(err, result) {
     if (err) {
       return onErr(err);
     }
-    var searchType = result.selection;
+    var searchType = result.search;
     whatSearch(searchType);
   });
 }
@@ -146,6 +150,43 @@ function whatSearch(searchType) {
         });
       });
     });
+  }
+
+  // Throw errors for unsupported features
+  else if (searchType === 'H' || searchType === 'h') {
+    console.log(chalk.blue.bold('\nWhatCD-cli - Copyright 2014 Cody Reichert - GNU GPL v3.0\n'));
+    console.log(chalk.blue(
+      'This command line interface allows you to browse what.cd torrents, arists,\n' +
+      'and albums (and a couple other things) directly from the command line.\n' +
+      'Currently, most of the searches you can make on what.cd are supported.\n'
+                          ));
+    console.log(chalk.blue(
+      'To search, you can enter a query from the main menu (which will match all\n' +
+      'albums, artists, singles, etc), or you can choose one of the advanced search' +
+      ' options:\n\n'
+                          ));
+    console.log(chalk.blue(
+      chalk.bold('  - (D) Download: Enter "D" or "d",') + ' from the main menu to download a torrent file.\n' +
+      '        You will be prompted for the ID. It will save to your torrentsDirectory set in ' +
+      'your settings.js file.\n'
+                          ));
+    console.log(chalk.blue(
+      chalk.bold('  - (Top) Top 10: Enter "Top" or "top"') + ' from the main menu to view the top 10 most\n' +
+      '        active torrents of the day.\n'
+                          ));
+    console.log(chalk.blue(
+      chalk.bold('  - (S) Similar: Enter "S" or "s"') + ' from the main menu to find similar artists.\n' +
+      '        You will be prompted for an artist name. It will show the first 10 (or less) matches.\n'
+                          ));
+    console.log(chalk.blue(
+      chalk.bold('  - (A) Artist search:') + ' Not yet implemented.\n'
+                          ));
+    console.log(chalk.blue(
+      chalk.bold('  - (T) Torrent search:') + ' Not yet implemented.\n'
+                          ));
+    console.log(chalk.blue('For more help, licensing information, or to submit issues\n' +
+                           'view the README at http://github.com/CodyReichert/whatcd-cli'));
+    mainMenu();
   }
 
   // Throw errors for unsupported features
