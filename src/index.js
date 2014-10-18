@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // imports
-var settings = require('./settings');
+var settings = require(process.env['HOME'] + '/.whatcd');
 var https    = require('https');
 var fs       = require('fs');
 var chalk    = require('chalk');
