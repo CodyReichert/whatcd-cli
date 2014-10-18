@@ -1,19 +1,23 @@
-## What.cd Command line Tool
---------------
+## What.cd Command line Interface
 
-A command line tool for browsing, searching, and downloading from what.cd.
+A command line interface for browsing, searching, and downloading from what.cd.
 
 ### Install
 
 The quickest way to install this is with npm:
 
-    $ npm install -g http://github.com/CodyReichert/whatcd-cli/tarball/v0.1.0
+    $ npm install -g CodyReichert/whatcd-cli
 
 And that's it! You can run it with:
 
     $ whatcd
 
 You'll need to create a config file with your username a password. Read more below.
+
+The npm install command above will install the latest changes. If you have problems
+install the lastest stable release instead.
+
+    npm install -g CodyReichert/whatcd-cli/0.1.0
 
 ### Configuration
 
@@ -36,12 +40,10 @@ If you don't have or want to use npm, you can clone the repo and run directly wi
     git clone git@github.com/CodyReichert/whatcd-cli
     cd whatcd-cli/
     npm install
-    // **Follow the config files steps about**
+    // **Follow the config files steps above**
     node src/whatcd.js
 
 ### Usage
-
-
 
 This command line interface allows you to browse what.cd torrents, arists,
 and albums (and a couple other things) directly from the command line.
@@ -51,14 +53,14 @@ To search, you can enter a query from the main menu (which will match all
 albums, artists, singles, etc), or you can choose one of the advanced search options:
 
 
-  - (D) Download: Enter "D" or "d", from the main menu to download a torrent file.
+  - **(D) Download: Enter "D" or "d"**, from the main menu to download a torrent file.
         You will be prompted for the ID. It will save to your torrentsDirectory set in your settings.js file.
-  - (Top) Top 10: Enter "Top" or "top" from the main menu to view the top 10 most
+  - **(Top) Top 10: Enter "Top" or "top"** from the main menu to view the top 10 most
         active torrents of the day.
-  - (S) Similar: Enter "S" or "s" from the main menu to find similar artists.
+  - **(S) Similar: Enter "S" or "s"** from the main menu to find similar artists.
         You will be prompted for an artist name. It will show the first 10 (or less) matches.
-  - (A) Artist search: Not yet implemented.
-  - (T) Torrent search: Not yet implemented.
+  - **(A)** Artist search: Not yet implemented.
+  - **(T)** Torrent search: Not yet implemented.
 
 For more help, licensing information, or to submit issues
 view the README at http://github.com/CodyReichert/whatcd-cli
