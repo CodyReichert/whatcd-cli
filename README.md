@@ -14,11 +14,6 @@ And that's it! You can run it with:
 
 **You'll need to create a config file with your username a password. Read more below.**
 
-The npm install command above will install the latest changes. If you have problems
-install the lastest stable release instead.
-
-    npm install -g CodyReichert/whatcd-cli/0.1.0
-
 ### Configuration
 
 Store your what.cd credentials in a .whatcd config file in the top level of your home
@@ -32,16 +27,6 @@ directory (`~/.whatcd` or `/home/<username>/.whatcd`).
 
 The torrentDirectory is where whatcd-cli will save all torrent files. My recommendation
 is to have your torrent client automatically start files added to this directory.
-
-### Alternative installations
-
-If you don't have or want to use npm, you can clone the repo and run directly with node:
-
-    git clone git@github.com/CodyReichert/whatcd-cli
-    cd whatcd-cli/
-    npm install
-    // **Follow the config files steps above**
-    node src/whatcd.js
 
 ### Usage
 
@@ -64,6 +49,21 @@ albums, artists, singles, etc), or you can choose one of the advanced search opt
 
 For more help, licensing information, or to submit issues
 view the README at http://github.com/CodyReichert/whatcd-cli
+
+### Alternative installations
+
+If you don't have or want to use npm, you can clone the repo and run directly with node:
+
+    git clone git@github.com/CodyReichert/whatcd-cli
+    cd whatcd-cli/
+    npm install
+    // **Follow the config files steps above**
+    node src/whatcd.js
+    
+The npm install command above will install the latest changes. If you have problems
+install the lastest stable release instead.
+
+    npm install -g CodyReichert/whatcd-cli/0.1.0
 
 ### Licensing and Disclaimer
 
