@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "what.cd command line interface to search browse and download torrents",
   "main": "whatcd.js",
-  "scripts": {
-    "test": "whatcd"
-  },
   "author": "Cody Reichert",
   "license": "GPL v3",
+  "bin": {
+    "whatcd": "./src/index.js"
+  },
   "dependencies": {
     "chalk": "^0.5.1",
     "prompt": "^0.2.14",
