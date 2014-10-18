@@ -69,7 +69,7 @@ function mainMenu() {
               chalk.bold('(Top)') + ' 10,' +
               chalk.bold('(S)') + 'imilar Artist,' +
               chalk.bold('(D)') + 'ownload, ' +
-              chalk.bold('(H)') + 'elp');
+              chalk.bold('(H)') + 'elp' +
               chalk.bold('(E)') + 'xit');
   prompt.get(['search'], function(err, result) {
     if (err) {
