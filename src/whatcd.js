@@ -14,9 +14,9 @@ if (fs.existsSync(settingsPath)) {
   console.log(chalk.red('\nYou need to add a configuration file at ~/.whatcd '));
   console.log(chalk.red('and add the following contents: \n'));
   console.log(chalk.red('  module.exports = {'));
-  console.log(chalk.red('    username = "your username"'));
-  console.log(chalk.red('    password = "your password"'));
-  console.log(chalk.red('    torrentDirectory = "/path/to/save/torrents"'));
+  console.log(chalk.red('    username: "your username",'));
+  console.log(chalk.red('    password: "your password",'));
+  console.log(chalk.red('    torrentDirectory: "/path/to/save/torrents"'));
   console.log(chalk.red('  }'));
 
   return;
@@ -69,7 +69,7 @@ function mainMenu() {
               chalk.bold('(Top)') + ' 10,' +
               chalk.bold('(S)') + 'imilar Artist,' +
               chalk.bold('(D)') + 'ownload, ' +
-              chalk.bold('(H)') + 'elp' +
+              chalk.bold('(H)') + 'elp, ' +
               chalk.bold('(E)') + 'xit');
   prompt.get(['search'], function(err, result) {
     if (err) {
