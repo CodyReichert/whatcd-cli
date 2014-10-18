@@ -1,16 +1,29 @@
 {
   "name": "whatcd-cli",
   "version": "0.1.0",
-  "description": "what.cd command line interface to search browse and download torrents",
-  "main": "whatcd.js",
-  "author": "Cody Reichert",
   "license": "GPL v3",
+  "description": "what.cd command line interface to search browse and download torrents",
+  "main": "./src/whatcd.js",
+  "author": "Cody Reichert codyreichert@gmail.com",
+  "preferGlobal": "true",
   "bin": {
-    "whatcd": "./src/index.js"
+    "whatcd": "./src/whatcd.js"
   },
   "dependencies": {
     "chalk": "^0.5.1",
     "prompt": "^0.2.14",
     "whatcd": "^2.1.0"
+  },
+  "keywords": [
+    "whatcd",
+    "cli",
+    "whatcd cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodyReichert/whatcd-cli/issues"
+  },
+  "bugs": {
+    "url": "https://github.com/CodyReichert/whatcd-cli/issues"
   }
 }
