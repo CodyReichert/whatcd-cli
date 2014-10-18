@@ -22,7 +22,7 @@ directory (`~/.whatcd` or `/home/<username>/.whatcd`).
     module.exports =  {
       username: "Your what.cd username",
       password: "Your what.cd password",
-      torrentDirectory: "/path/to/save/torrent"
+      torrentDirectory: "/path/to/save/torrents/"
     }
 
 The torrentDirectory is where whatcd-cli will save all torrent files. My recommendation
