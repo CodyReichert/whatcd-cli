@@ -216,8 +216,7 @@ function whatSearch(searchType) {
   }
 
   else if (searchType === 'E' || searchType === 'e') {
-    console.log( "\nGracefully shutting down." );
-    console.log( "\nTo the strongest!" );
+    console.log( "\nGracefully shutting down.\n" );
     process.exit();
   }
 
