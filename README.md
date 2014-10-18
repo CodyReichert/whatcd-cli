@@ -12,7 +12,7 @@ And that's it! You can run it with:
 
     $ whatcd
 
-You'll need to create a config file with your username a password. Read more below.
+**You'll need to create a config file with your username a password. Read more below.**
 
 The npm install command above will install the latest changes. If you have problems
 install the lastest stable release instead.
