@@ -65,6 +65,10 @@ install the lastest stable release instead.
 
     npm install -g CodyReichert/whatcd-cli/0.1.0
 
+### Preview
+
+<img src="screencast.gif" alt="whatcd-cli demo">
+
 ### Licensing and Disclaimer
 
 #### GNU General Public License v3.0
