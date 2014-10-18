@@ -1,13 +1,13 @@
 {
-  "name": "whatcdcli",
+  "name": "whatcd-cli",
   "version": "0.1.0",
-  "description": "what.cd command line interface",
-  "main": "index.js",
+  "description": "what.cd command line interface to search browse and download torrents",
+  "main": "whatcd.js",
   "scripts": {
-    "test": "whatcdcli"
+    "test": "whatcd"
   },
   "author": "Cody Reichert",
-  "license": "MIT",
+  "license": "GPL v3",
   "dependencies": {
     "chalk": "^0.5.1",
     "prompt": "^0.2.14",
