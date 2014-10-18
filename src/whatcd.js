@@ -21,10 +21,6 @@ if (fs.existsSync(settingsPath)) {
 
   return;
 }
-var https    = require('https');
-var fs       = require('fs');
-var chalk    = require('chalk');
-var WhatCD   = require('whatcd');
 
 // prompt settings
 var prompt = require('prompt');
