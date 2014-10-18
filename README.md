@@ -9,9 +9,9 @@ A command line tool for browsing, searching, and downloading content from what.c
 2) `npm install`
 3) Create the file `src/settings.js` file and put this in it:
     module.exports =  {
-      username = "Your what.cd username"
-      password = "Your what.cd password"
-      torrentDirectory = "/path/to/save/torrent"
+      username: "Your what.cd username",
+      password: "Your what.cd password",
+      torrentDirectory: "/path/to/save/torrent"
     }
 4) Run the app:
     node src/index.js
