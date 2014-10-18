@@ -1,54 +1,70 @@
 ## What.cd Command line Tool
 --------------
 
-A command line tool for browsing, searching, and downloading content from what.cd.
+A command line tool for browsing, searching, and downloading from what.cd.
 
-#### Install
+### Install
 
-1) Git clone the repo
-2) `npm install`
-3) Create the file `src/settings.js` file and put this in it:
+The quickest way to install this is with npm:
+
+    $ npm install -g http://github.com/CodyReichert/whatcd-cli/tarball/v0.1.0
+
+And that's it! You can run it with:
+
+    $ whatcd
+
+You'll need to create a config file with your username a password. Read more below.
+
+### Configuration
+
+Store your what.cd credentials in a .whatcd config file in the top level of your home
+directory (`~/.whatcd` or `/home/<username>/.whatcd`).
+
     module.exports =  {
       username: "Your what.cd username",
       password: "Your what.cd password",
       torrentDirectory: "/path/to/save/torrent"
     }
-4) Run the app:
-    node src/index.js
 
-#### Usage
+The torrentDirectory is where whatcd-cli will save all torrent files. My recommendation
+is to have your torrent client automatically start files added to this directory.
 
-Run the app with `node src/index.js` and follow the prompts. Here are the options:
+### Alternative installations
 
-Note, most of the searches are case and space sensitive.
-*Basic Search*
-- From the main menu, you can enter one of the displayed search types, or just enter any string to browse all torrents.
+If you don't have or want to use npm, you can clone the repo and run directly with node:
 
-*Search by Artist*
-`A`, `a`, `artist`, `Artist`
-- This search returns all torrents which contain the artist.
+    git clone git@github.com/CodyReichert/whatcd-cli
+    cd whatcd-cli/
+    npm install
+    // **Follow the config files steps about**
+    node src/whatcd.js
 
-*Search by Torrent*
-`A`, `a`, `artist`, `Artist`
-- Returns all torrents that contain the query. This can be artist, album, genre, etc.
-
-*Top 10*
-`Top`, `top`
-- This dispays the Top 10 torrents of that day.
-
-*Download Torrents*
-`D`, `d`, `Download`, `download`
-- To download a torrent, use one of the commands above from the main menu. You will be prompted for an
-  id; enter the ID of the torrent you want to download. All of the browse and search functions display the
-  torrent id.
+### Usage
 
 
-#### Options
 
-Browse and Top10 are the only function searches currently. All others will return an error. Check back soon for more updates.
+This command line interface allows you to browse what.cd torrents, arists,
+and albums (and a couple other things) directly from the command line.
+Currently, most of the searches you can make on what.cd are supported.
 
+To search, you can enter a query from the main menu (which will match all
+albums, artists, singles, etc), or you can choose one of the advanced search options:
+
+
+  - (D) Download: Enter "D" or "d", from the main menu to download a torrent file.
+        You will be prompted for the ID. It will save to your torrentsDirectory set in your settings.js file.
+  - (Top) Top 10: Enter "Top" or "top" from the main menu to view the top 10 most
+        active torrents of the day.
+  - (S) Similar: Enter "S" or "s" from the main menu to find similar artists.
+        You will be prompted for an artist name. It will show the first 10 (or less) matches.
+  - (A) Artist search: Not yet implemented.
+  - (T) Torrent search: Not yet implemented.
+
+For more help, licensing information, or to submit issues
+view the README at http://github.com/CodyReichert/whatcd-cli
 
 ### Licensing and Disclaimer
+
 #### GNU General Public License v3.0
 
 **This software is licensed under the GNU General Publice License Version 3.0**
@@ -57,7 +73,6 @@ WhatCD-cli is a command-line interface for browsing and downloading what.cd torr
 
 
 Copyright (C) 2014 Cody Reichert
-
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
