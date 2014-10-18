@@ -1,7 +1,26 @@
 #!/usr/bin/env node
 
 // imports
-var settings = require(process.env['HOME'] + '/.whatcd');
+var https    = require('https');
+var fs       = require('fs');
+var chalk    = require('chalk');
+var WhatCD   = require('whatcd');
+var settingsPath = process.env['HOME'] + '/.whatcd';
+
+//load settings
+if (fs.existsSync(settingsPath)) {
+  var settings = require(process.env['HOME'] + '/.whatcd');
+} else {
+  console.log('\nYou need to add a configuration file at ~/.whatcd ');
+  console.log('and add the following contents: \n');
+  console.log('  module.exports = {');
+  console.log('    username = "your username"');
+  console.log('    password = "your password"');
+  console.log('    torrentDirectory = "/path/to/save/torrents"');
+  console.log('  }');
+
+  return;
+}
 var https    = require('https');
 var fs       = require('fs');
 var chalk    = require('chalk');
