@@ -11,13 +11,13 @@ var settingsPath = process.env['HOME'] + '/.whatcd';
 if (fs.existsSync(settingsPath)) {
   var settings = require(process.env['HOME'] + '/.whatcd');
 } else {
-  console.log('\nYou need to add a configuration file at ~/.whatcd ');
-  console.log('and add the following contents: \n');
-  console.log('  module.exports = {');
-  console.log('    username = "your username"');
-  console.log('    password = "your password"');
-  console.log('    torrentDirectory = "/path/to/save/torrents"');
-  console.log('  }');
+  console.log(chalk.red('\nYou need to add a configuration file at ~/.whatcd '));
+  console.log(chalk.red('and add the following contents: \n'));
+  console.log(chalk.red('  module.exports = {'));
+  console.log(chalk.red('    username = "your username"'));
+  console.log(chalk.red('    password = "your password"'));
+  console.log(chalk.red('    torrentDirectory = "/path/to/save/torrents"'));
+  console.log(chalk.red('  }'));
 
   return;
 }
