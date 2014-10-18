@@ -70,6 +70,7 @@ function mainMenu() {
               chalk.bold('(S)') + 'imilar Artist,' +
               chalk.bold('(D)') + 'ownload, ' +
               chalk.bold('(H)') + 'elp');
+              chalk.bold('(E)') + 'xit');
   prompt.get(['search'], function(err, result) {
     if (err) {
       return onErr(err);
@@ -214,6 +215,12 @@ function whatSearch(searchType) {
     return onErr(error);
   }
 
+  else if (searchType === 'E' || searchType === 'e') {
+    console.log( "\nGracefully shutting down." );
+    console.log( "\nTo the strongest!" );
+    process.exit();
+  }
+
   // Browse Torrents - DEFAULT ACTION FROM MAIN MENU
   else {
     var query = searchType;
@@ -241,7 +248,6 @@ function whatSearch(searchType) {
       mainMenu();
     });
   } // default search
-
 }
 
 function onErr(err) {
