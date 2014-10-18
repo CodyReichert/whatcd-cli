@@ -151,7 +151,7 @@ function whatSearch(searchType) {
                   '&torrent_pass=' +
                   passkey
         var request = https.get(url, function(res) {
-          console.log(torrentFilepath);
+          console.log('\n' + torrentFilepath);
           var data = '';
           res.setEncoding('binary');
           res.on('data', function(chunk) {
