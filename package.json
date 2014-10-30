@@ -2,7 +2,7 @@
   "name": "whatcd-cli",
   "version": "0.1.0",
   "license": "GPL v3",
-  "description": "what.cd command line interface to search browse and download torrents",
+  "description": "Command line interface to search browse and download from whatcd",
   "main": "./src/whatcd.js",
   "author": "Cody Reichert codyreichert@gmail.com",
   "preferGlobal": "true",
