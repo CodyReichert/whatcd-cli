@@ -14,7 +14,7 @@ if (fs.existsSync(settingsPath)) {
 } else if (fs.existsSync(path.join(process.env['HOME'], '.whatcd'))) {
   var settings = require(path.join(process.env['HOME'], '.whatcd'));
 } else {
-  console.log(chalk.red('\nYou need to add a configuration file at ~/.whatcd '));
+  console.log(chalk.red('\nYou need to add a configuration file at $XDG_CONFIG_HOME/whatcd or ~/.whatcd '));
   console.log(chalk.red('and add the following contents: \n'));
   console.log(chalk.red('  module.exports = {'));
   console.log(chalk.red('    username: "your username",'));
