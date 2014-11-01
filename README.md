@@ -55,11 +55,11 @@ view the README at http://github.com/CodyReichert/whatcd-cli
  - One of the first things I want to do is have single command interactions, so the interactive mode is
  optional. So you could just do something like this to download a file:
 
-    $ whatcd -d "torrent-id"
+      $ whatcd -d "torrent-id"
     
     // or this to get album an album in a certain format
     
-    $ whatcd -a "Brand New" -b "Daisy" -f "FLAC"
+      $ whatcd -a "Brand New" -b "Daisy" -f "FLAC"
 
 ### Alternative installations
 
