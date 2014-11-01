@@ -47,7 +47,7 @@ function login(username, password) {
     }
     authkey = data.authkey;
     passkey = data.passkey;
-    console.log(chalk.blue('_________________________________________________________________________________________'));
+    console.log(chalk.blue(new Array(process.stdout.columns + 1).join('_')));
     console.log(chalk.blue.bold('\n WhatCD-cli - Copyright 2014 - GNU GPL v3.0\n') +
                                 ' For issues, visit http://github.com/CodyReichert/whatcd-cli');
     console.log(chalk.green.bold('\n Welcome back, ' + username + '!'));
@@ -57,7 +57,7 @@ function login(username, password) {
 
 // Main menu
 function mainMenu() {
-  console.log(chalk.blue('_________________________________________________________________________________________\n') +
+  console.log(chalk.blue(new Array(process.stdout.columns + 1).join('_') + '\n') +
                           chalk.magenta('Search for any artist, album or torrent, or use one of the advanced search' +
                           ' commands below'));
   console.log(chalk.bold('(A)') + 'rtist Search,' +
