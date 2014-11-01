@@ -6,7 +6,7 @@ A command line interface for browsing, searching, and downloading from what.cd.
 
 The quickest way to install this is with npm:
 
-    $ npm install -g CodyReichert/whatcd-cli
+    $ npm install -g whatcd-cli
 
 And that's it! You can run it with:
 
