@@ -50,6 +50,13 @@ albums, artists, singles, etc), or you can choose one of the advanced search opt
 For more help, licensing information, or to submit issues
 view the README at http://github.com/CodyReichert/whatcd-cli
 
+### Roadmap and Future Development
+
+ - One of the first things I want to do is have single command interactions, so the interactive mode is
+ optional. So you could just do something like this to download a file:
+
+  $ whatcd -d <torrent-id>
+
 ### Alternative installations
 
 If you don't have or want to use npm, you can clone the repo and run directly with node:
