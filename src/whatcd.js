@@ -3,13 +3,16 @@
 // imports
 var https    = require('https');
 var fs       = require('fs');
+var path     = require('path');
 var chalk    = require('chalk');
 var WhatCD   = require('whatcd');
-var settingsPath = process.env['HOME'] + '/.whatcd';
+var settingsPath = path.join(process.env['XDG_CONFIG_HOME'] || path.join(process.env['HOME'], '.config'), 'whatcd');
 
 //load settings
 if (fs.existsSync(settingsPath)) {
-  var settings = require(process.env['HOME'] + '/.whatcd');
+  var settings = require(settingsPath);
+} else if (fs.existsSync(path.join(process.env['HOME'], '.whatcd'))) {
+  var settings = require(path.join(process.env['HOME'], '.whatcd'));
 } else {
   console.log(chalk.red('\nYou need to add a configuration file at ~/.whatcd '));
   console.log(chalk.red('and add the following contents: \n'));
