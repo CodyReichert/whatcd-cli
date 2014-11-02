@@ -8,45 +8,79 @@ var chalk    = require('chalk');
 var WhatCD   = require('whatcd');
 var settingsPath = path.join(process.env['XDG_CONFIG_HOME'] || path.join(process.env['HOME'], '.config'), 'whatcd');
 
-//load settings
-if (fs.existsSync(settingsPath)) {
-  var settings = require(settingsPath);
-} else if (fs.existsSync(path.join(process.env['HOME'], '.whatcd'))) {
-  var settings = require(path.join(process.env['HOME'], '.whatcd'));
-} else {
-  console.log(chalk.red('\nYou need to add a configuration file at $XDG_CONFIG_HOME/whatcd or ~/.whatcd '));
-  console.log(chalk.red('and add the following contents: \n'));
-  console.log(chalk.red('  module.exports = {'));
-  console.log(chalk.red('    username: "your username",'));
-  console.log(chalk.red('    password: "your password",'));
-  console.log(chalk.red('    torrentDirectory: "/path/to/save/torrents"'));
-  console.log(chalk.red('  }'));
-
-  return;
-}
-
 // prompt settings
 var prompt = require('prompt');
 prompt.message = '';
 prompt.delimiter = '';
 prompt.start();
 
-// what.cd client
+// load configuration or prompt for it
 var whatUrl = 'https://what.cd';
-var client =  new WhatCD(whatUrl, settings.username, settings.password);
-var authkey;
-var passkey;
+var settings = {};
+var client = {};
 
-login(settings.username, settings.password);
+if (fs.existsSync(settingsPath)) {
+  var configFile = require(settingsPath);
+  settings.username = configFile.username
+  settings.password = configFile.password
+  settings.torrentDirectory = configFile.torrentDirectory
+  createClient();
+
+} else if (fs.existsSync(path.join(process.env['HOME'], '.whatcd'))) {
+  var configFile = require(path.join(process.env['HOME'], '.whatcd'));
+  settings.username = configFile.username
+  settings.password = configFile.password
+  settings.torrentDirectory = configFile.torrentDirectory
+  createClient();
+
+} else { //no config found, prompt for credentials
+  prompt.get(['username'], function(err, result) {
+    if (err) {
+      return onErr(err);
+    }
+    settings.username = result.username;
+    prompt.get(['password'], function(err, result) {
+      if (err) {
+        return onErr(err);
+      }
+      settings.password = result.password;
+      settings.torrentDirectory = '';
+      console.log(chalk.gray('Downloads will save in the current working directory'));
+      createClient();
+    });
+  });
+}
+
+// what.cd client
+function createClient() {
+  client =  new WhatCD(whatUrl, settings.username, settings.password);
+  login(client, settings.username);
+}
+
+var configError = function() {
+  console.log(chalk.white('\nCould not log in or find a config file.'));
+  console.log(chalk.white('You need to add a configuration file at $XDG_CONFIG_HOME/whatcd or ~/.whatcd '));
+  console.log(chalk.white ('and add the following contents: \n'));
+  console.log(chalk.red('  module.exports = {'));
+  console.log(chalk.red('    username: "your username",'));
+  console.log(chalk.red('    password: "your password",'));
+  console.log(chalk.red('    torrentDirectory: "/path/to/save/torrents"'));
+  console.log(chalk.red('  }'));
+  console.log(chalk.white('Or try logging in again.'));
+}
 
 //-----------------------------------//
 // Authentication. Get sent to the main
 // menu upon successful authentication
 //-----------------------------------//
-function login(username, password) {
+var authkey;
+var passkey;
+function login(client, username) {
   client.index(function(err, data) {
     if (err) {
-      return onErr(err);
+      configError(); // login failed
+      console.log('Couldn\'t log in. Check your credentials and try again');
+      return err;
     }
     authkey = data.authkey;
     passkey = data.passkey;
@@ -63,11 +97,11 @@ function mainMenu() {
   console.log(chalk.blue(new Array(process.stdout.columns + 1).join('_') + '\n') +
                           chalk.magenta('Search for any artist, album or torrent, or use one of the advanced search' +
                           ' commands below'));
-  console.log(chalk.bold('(A)') + 'rtist Search,' +
-              chalk.bold('(T)') + 'orrent Search,' +
-              chalk.bold('(Top)') + ' 10,' +
-              chalk.bold('(S)') + 'imilar Artist,' +
+  console.log(chalk.bold('(S)') + 'imilar Artist,' +
               chalk.bold('(D)') + 'ownload, ' +
+              chalk.bold('(Top)') + ' 10,' +
+              chalk.bold('(A)') + 'rtist Search,' +
+              chalk.bold('(T)') + 'orrent Search,' +
               chalk.bold('(H)') + 'elp, ' +
               chalk.bold('(E)') + 'xit');
   prompt.get(['search'], function(err, result) {
