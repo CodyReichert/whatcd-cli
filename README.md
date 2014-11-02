@@ -7,8 +7,9 @@ A command line interface for browsing, searching, and downloading from what.cd.
 The quickest way to install is to get the latest version from npm:
 
     $ npm install -g whatcd-cli
-  or get the latest from github
-  
+
+  or get the latest changes from github
+
     $ npm install -g CodyReichert/whatcd-cli
 
 And that's it! You can run it with:
@@ -16,6 +17,8 @@ And that's it! You can run it with:
     $ whatcd
 
 **You'll need to create a config file with your username a password. Read more below.**
+
+Read the alternative install section below for more help with installing.
 
 ### Configuration
 
@@ -68,7 +71,7 @@ view the README at http://github.com/CodyReichert/whatcd-cli
 
 If you don't have or want to use npm, you can clone the repo and run directly with node:
 
-    git clone git@github.com/CodyReichert/whatcd-cli
+    git clone git@github.com:CodyReichert/whatcd-cli
     cd whatcd-cli/
     npm install
     // **Follow the config files steps above**
