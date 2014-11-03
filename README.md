@@ -1,5 +1,7 @@
 ## What.cd Command line Interface
 
+[![Build Status](https://travis-ci.org/CodyReichert/whatcd-cli.svg?branch=master)](https://travis-ci.org/CodyReichert/whatcd-cli)
+
 A command line interface for browsing, searching, and downloading from what.cd.
 
 ### Install
