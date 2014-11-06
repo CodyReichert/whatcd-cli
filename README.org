@@ -1,6 +1,6 @@
 #+STYLE: <style type="text/css"> #text-5-1 b { color: red } </style>
 
-* whatcd-cli [[https://travis-ci.org/CodyReichert/whatcd-cli.svg?branch=master]]
+* whatcd-cli [[https://travis-ci.org/CodyReichert/whatcd-cli.svg?branch=master]] [[http://img.shields.io/badge/license-GNU%20GPLv3-red.svg]]
 **** whatcd-cli is a command line interface for browsing, searching, and downloading from what.cd.
 
 * Install
