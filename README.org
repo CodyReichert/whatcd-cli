@@ -1,8 +1,5 @@
 #+STYLE: <style type="text/css"> #text-5-1 b { color: red } </style>
 
-
-# [[https://travis-ci.org/CodyReichert/whatcd-cli.svg?branch=master]]
-
 * whatcd-cli [[https://travis-ci.org/CodyReichert/whatcd-cli.svg?branch=master]]
 **** whatcd-cli is a command line interface for browsing, searching, and downloading from what.cd.
 
@@ -96,7 +93,6 @@ Read the alternative installation section below for more help with installing.
    #+END_SRC
 
 * Alternative installations
-
 *** Installing without NPM 
    If you don't have or want to use npm, you can clone the repo and run directly with node:
 
@@ -118,7 +114,6 @@ Read the alternative installation section below for more help with installing.
    #+END_SRC
 
 * Licensing and Disclaimer
-
 *** GNU General Public License v3.0
 
    *This software is licensed under the GNU General Publice License Version 3.0*
