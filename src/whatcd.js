@@ -39,7 +39,7 @@ if (fs.existsSync(settingsPath)) {
       return onErr(err);
     }
     settings.username = result.username;
-    prompt.get(['password'], function(err, result) {
+    prompt.get([{name: 'password', hidden: true}], function(err, result) {
       if (err) {
         return onErr(err);
       }
@@ -85,7 +85,7 @@ function login(client, username) {
     authkey = data.authkey;
     passkey = data.passkey;
     console.log(chalk.blue(new Array(process.stdout.columns + 1).join('_')));
-    console.log(chalk.blue.bold('\n WhatCD-cli - Copyright 2014 - GNU GPL v3.0\n') +
+    console.log(chalk.blue.bold('\n WhatCD-cli - GNU GPL v3.0\n') +
                                 ' For issues, visit http://github.com/CodyReichert/whatcd-cli');
     console.log(chalk.green.bold('\n Welcome back, ' + username + '!'));
     mainMenu();
@@ -207,7 +207,7 @@ function whatSearch(searchType) {
 
   // Throw errors for unsupported features
   else if (searchType === 'H' || searchType === 'h') {
-    console.log(chalk.blue.bold('\nWhatCD-cli - Copyright 2014 Cody Reichert - GNU GPL v3.0\n'));
+    console.log(chalk.blue.bold('\nWhatCD-cli - GNU GPL v3.0\n'));
     console.log(chalk.blue(
       'This command line interface allows you to browse what.cd torrents, arists,\n' +
       'and albums (and a couple other things) directly from the command line.\n' +
