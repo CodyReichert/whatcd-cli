@@ -110,7 +110,7 @@ Read the alternative installation section below for more help with installing.
    install the lastest stable release instead.
 
    #+BEGIN_SRC bash
-       npm install -g CodyReichert/whatcd-cli/0.1.0
+       npm install -g CodyReichert/whatcd-cli/0.2.0
    #+END_SRC
 
 * Licensing and Disclaimer
