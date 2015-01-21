@@ -262,7 +262,9 @@ function whatSearch(searchType) {
         return onErr(err);
       }
       for (var i = 0; i < data.results.length; i++) {
-        if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
+        // Why not display Various artists?
+        //if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
+        if (data.results[i].artist) {
           console.log(chalk.bold(data.results[i].artist + ': ' + chalk.blue(data.results[i].groupName) + ' ' +
                       chalk.yellow(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
           var torrents = data.results[i].torrents;
