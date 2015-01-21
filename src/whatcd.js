@@ -272,7 +272,8 @@ function whatSearch(searchType) {
             console.log('');
           } else {
             for (var t = 0; t < torrents.length; t++) {
-              console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
+	      // TODO: (torrents[t].scene ? chalk.bold.red(' SCENE') : ' ') Could be more subtle, maybe just color the hyphen?
+              console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding  + (torrents[t].scene ? chalk.bold.red(' SCENE') : ' ') +
                           ' (' + chalk.green(torrents[t].seeders) + '/' + chalk.red(torrents[t].leechers) + ')' +
                           ' Torrent Id: ' + torrents[t].torrentId);
             }
@@ -288,3 +289,4 @@ function onErr(err) {
   console.log(err);
   mainMenu();
 }
+
