@@ -262,7 +262,9 @@ function whatSearch(searchType) {
         return onErr(err);
       }
       for (var i = 0; i < data.results.length; i++) {
-        if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
+        // Why not display Various artists?
+        //if (data.results[i].artist && data.results[i].artist !== 'Various Artists') {
+        if (data.results[i].artist) {
           console.log(chalk.bold(data.results[i].artist + ': ' + chalk.blue(data.results[i].groupName) + ' ' +
                       chalk.yellow(data.results[i].groupYear) + chalk.cyan(' ['+data.results[i].releaseType+']')));
           var torrents = data.results[i].torrents;
@@ -270,7 +272,8 @@ function whatSearch(searchType) {
             console.log('');
           } else {
             for (var t = 0; t < torrents.length; t++) {
-              console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding +
+	      // TODO: (torrents[t].scene ? chalk.bold.red(' SCENE') : ' ') Could be more subtle, maybe just color the hyphen?
+              console.log('  - ' + torrents[t].format + ' ' + torrents[t].encoding  + (torrents[t].scene ? chalk.bold.red(' SCENE') : ' ') +
                           ' (' + chalk.green(torrents[t].seeders) + '/' + chalk.red(torrents[t].leechers) + ')' +
                           ' Torrent Id: ' + torrents[t].torrentId);
             }
@@ -286,3 +289,4 @@ function onErr(err) {
   console.log(err);
   mainMenu();
 }
+
