@@ -168,30 +168,27 @@ function whatSearch(searchType) {
           console.log(err);
           return onErr(err);
         }
-        //for (var i = 0; i < data.results.length; i++) {
-          if (data.group !== undefined) {
-	     console.log(chalk.bold(data.group.year + ' - ' + data.group.name  + ' - Label: ' + (data.group.recordLabel ? data.group.recordLabel : 'N/A' ) + ' - Calatogue: ' + (data.group.catalogueNumber ? data.group.catalogueNumber : 'N/A')));
-	     if (data.torrent !== undefined) {
-	       console.log(' == ' + data.torrent.filePath);
-	       console.log(' == ' + data.torrent.media + ' - ' + data.torrent.format + ' - ' + data.torrent.encoding);
-	       console.log('  - Seeders: ' + data.torrent.seeders);
-	       console.log('  - Leechers: ' + data.torrent.leechers);
-	       console.log('  - Snatched: ' + data.torrent.snatched);
-	       console.log('  - Size: ' + Math.round((data.torrent.size / 1024 / 1024) * 100) / 100 + ' MB');
-               console.log('  - Files: ' + data.torrent.fileCount);
+        if (data.group !== undefined) {
+	   console.log(chalk.bold(data.group.year + ' - ' + data.group.name  + ' - Label: ' + (data.group.recordLabel ? data.group.recordLabel : 'N/A' ) + ' - Calatogue: ' + (data.group.catalogueNumber ? data.group.catalogueNumber : 'N/A')));
+	   if (data.torrent !== undefined) {
+	     console.log(chalk.yellow(' == ') + data.torrent.media + ' - ' + data.torrent.format + ' - ' + data.torrent.encoding);
+	     console.log('  - Seeders: ' + data.torrent.seeders);
+	     console.log('  - Leechers: ' + data.torrent.leechers);
+             console.log('  - Snatched: ' + data.torrent.snatched);
+	     console.log('  - Size: ' + Math.round((data.torrent.size / 1024 / 1024) * 100) / 100 + ' MB');
+             console.log('  - Files: ' + data.torrent.fileCount);
+	     console.log(chalk.yellow(' == ') +  '/' + data.torrent.filePath);
 		
-	       var files = data.torrent.fileList.split("|||");
-	       for (var i = 0; i < files.length; i ++) {
-	         console.log('           - ' + files[i].replace(/\{\{\{/g, ' - ').replace(/\}\}\}/g, ' bytes'));
-	       }
-	     } else {
-	       console.log('');
+	     var files = data.torrent.fileList.split("|||");
+	     for (var i = 0; i < files.length; i ++) {
+	       console.log('    -> ' + files[i].replace(/\{\{\{/g, ' - ').replace(/\}\}\}/g, ' bytes'));
 	     }
-	  } else {
-	    console.log('');
-	  }
-        //}
-
+           } else {
+	     console.log('');
+	   }
+	} else {
+	  console.log('');
+	}
 
         mainMenu();
       });
