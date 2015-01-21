@@ -156,9 +156,50 @@ function whatSearch(searchType) {
     });
   }
 
+  // Torrent details
+  else if (searchType === 'Det' || searchType === 'det') {
+    console.log(chalk.cyan('Enter the id of the torrent file'));
+    prompt.get(['Id'], function(err, result) {
+      if (err) {
+        return onErr(err);
+      }
+      client.api_request({ action: "torrent", id: result.Id}, function(err, data) {
+        if (err) {
+          console.log(err);
+          return onErr(err);
+        }
+        //for (var i = 0; i < data.results.length; i++) {
+          if (data.group !== undefined) {
+	     console.log(chalk.bold(data.group.year + ' - ' + data.group.name  + ' - Label: ' + (data.group.recordLabel ? data.group.recordLabel : 'N/A' ) + ' - Calatogue: ' + (data.group.catalogueNumber ? data.group.catalogueNumber : 'N/A')));
+	     if (data.torrent !== undefined) {
+	       console.log(' == ' + data.torrent.filePath);
+	       console.log(' == ' + data.torrent.media + ' - ' + data.torrent.format + ' - ' + data.torrent.encoding);
+	       console.log('  - Seeders: ' + data.torrent.seeders);
+	       console.log('  - Leechers: ' + data.torrent.leechers);
+	       console.log('  - Snatched: ' + data.torrent.snatched);
+	       console.log('  - Size: ' + Math.round((data.torrent.size / 1024 / 1024) * 100) / 100 + ' MB');
+               console.log('  - Files: ' + data.torrent.fileCount);
+		
+	       var files = data.torrent.fileList.split("|||");
+	       for (var i = 0; i < files.length; i ++) {
+	         console.log('           - ' + files[i].replace(/\{\{\{/g, ' - ').replace(/\}\}\}/g, ' bytes'));
+	       }
+	     } else {
+	       console.log('');
+	     }
+	  } else {
+	    console.log('');
+	  }
+        //}
+
+
+        mainMenu();
+      });
+    });
+  }
+
   // Download torrent file by id
   else if (searchType === 'Download' || searchType ===  'D' || searchType ===  'd') {
-
     console.log(chalk.cyan('Enter the id of the torrent file'));
     prompt.get(['Id'], function(err, result) {
       if (err) {
@@ -280,6 +321,8 @@ function whatSearch(searchType) {
           }
         }
       }
+      console.log(' ');
+      console.log('Type "det <enter> torrentid" to get details about a specific torrent.');
       mainMenu();
     });
   } // default search
